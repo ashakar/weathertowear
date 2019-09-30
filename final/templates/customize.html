@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+{% block title %}
+    Customize Your Weather Stylist
+{% endblock %}
+{% block main %}
+<style>
+form-control{
+    /* override Bootstrap's 100% width for form controls */
+    width: auto;
+    display: block;
+}
+</style>
+<div class="container-fluid bg-white">
+    <div class="row">
+        <div class = "col-sm p-5 m-6 bg-custom">
+            <div class="row">
+                <div class="px-3 pt-4 py-2 bg-white container-fluid">
+                    <h5>General</h5>
+                    <form action="/customize" method="post">
+                        
+                    <div class="form-group">
+                        <label for="name">Name : <i>{{name}}</i> </label>
+                        <input autocomplete="off" autofocus class="form-control" name="name" type="text">
+                        <br>
+                        <label for="location">Location : <i>{{location}} </i> </label>
+                        <input autocomplete="off" autofocus class="form-control" name="location" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="px-3 pt-2 py-2 bg-white">
+                <h5>Temperature Thresholds</h5>
+                {% for weathertype in info %}
+                    {% set conditiontext = (weathertype['condition']).replace(" ", "_") %}
+                        <h4>{{weathertype['condition']}} </h4>
+                        <div class="form-row">
+                        <div class="col-sm">
+                            <div class="form-group">
+                                <label for={{ conditiontext+"_min"}}>Lower: <i>{{weathertype['lower']}} </i></label>
+                                <input autocomplete="off" autofocus class="form-control" name={{ conditiontext+"_min" }} type="text">
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group">
+                                <label for={{ weathertype['condition']+"max"}}>Upper: <i>{{weathertype['upper']}} </i></label>
+                                <input autocomplete="off" autofocus class="form-control" name={{ weathertype['condition']+"max" }} type="text">
+                            </div>
+                        </div>
+                        </div>
+                {% endfor %}  
+                </div>
+            </div>
+        </div> 
+        <div class = "col-sm  p-5 m-6 bg-white">
+            <div class="px-3 pt-4 py-2 bg-custom">
+                <h5 class>Clothing Preferences</h5>   
+                {% for weathertype in info %}
+                    {% set conditiontext = (weathertype['condition']).replace(" ", "_") %}
+                    <h4 class = "text-white">{{weathertype['condition']}}</h4>
+                    <div class="form-group">
+                        <label class="text-secondary" for={{ conditiontext+"_clothing" }}> <i>{{weathertype['clothing']}} </i></label>
+                        <input autocomplete="off" autofocus class="form-control" name={{ conditiontext+"_clothing" }} type="text">
+                    </div>
+                {% endfor %} 
+                </div>
+            <br>    
+            <button class="btn btn-custom1 py-2" type="submit">Customize</button>
+            
+        </div>
+    </div>
+    </form>
+    </div>
+
+
+{% endblock %}

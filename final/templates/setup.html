@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Set Up Your Account!
+{% endblock %}
+{% block main %}
+<div class="container-fluid bg-white">
+    <div class="row">
+        <div class = "col-sm p-5 m-6 bg-custom">
+            <div class="text-center px-3 py-4 bg-white">
+                <h4>Before you can use the weather stylist, there's a couple of bits about you that we'd like
+                to have to make your experience as personalized as possible!
+                <br>-<br>
+                Don't worry - you can always change these preferences in the customize tab!
+                </h4>
+            </div>
+        </div>
+        <div class = "col-sm  p-5 m-6 bg-white">
+            <form action="/setup" method="post">
+                <div class="form-group">
+                    <label for="extremeheat">What do you wear on the hottest of days?</label>
+                    <input autocomplete="off" autofocus class="form-control" name="extremeheat" type="text" required>
+                </div>
+                <div class="form-group">
+                    <label for="warmdays">What do you wear when it's warm outside, but not scalding hot?</label>
+                    <input autocomplete="off" autofocus class="form-control" name="warmdays" type="text" required>
+                </div>
+                <div class="form-group">
+                    <label for="clear">What do you wear when it's clear or "nice" outside?</label>
+                    <input autocomplete="off" autofocus class="form-control" name="clear" type="text" required>
+                </div>
+                <div class="form-group">
+                    <label for="cooldays">What do you wear when it's foggy, cloudy or windy outside and slightly cold?</label>
+                    <input autocomplete="off" autofocus class="form-control" name="cooldays" type="text" required>
+                </div>
+                <div class="form-group">
+                    <label for="rain">What do you wear to combat the rain?</label>
+                    <input autocomplete="off" autofocus class="form-control" name="rain" type="text" required>
+                </div>
+                <div class="form-group">
+                    <label for="chillydays">What do you wear when it's really chilly outside?</label>
+                    <input autocomplete="off" autofocus class="form-control" name="chillydays" type="text required">
+                </div>
+                <div class="form-group">
+                    <label for="snow">The word chilly is really relative for everyone. How do you dress for the snow?</label>
+                    <input autocomplete="off" autofocus class="form-control" name="snow" type="text" required>
+                </div>
+                <button class="btn btn-custom p-0" type="submit">Customize</button>
+            </form>
+        </div>
+        
+    </div>
+</div>
+
+{% endblock %}

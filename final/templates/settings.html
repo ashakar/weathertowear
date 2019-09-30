@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+{% block title %}
+    Account Settings
+{% endblock %}
+{% block main %}
+
+<div class="container-fluid bg-white">
+    <div class="row">
+        <div class = "col-sm p-5 m-6 bg-custom">
+            <div class="text-center px-3 pt-4 py-2 bg-white">
+                <h5>Account Settings</h5>
+            </div>
+            <div class="text-center px-3 py-3 bg-white">
+                <label><strong>Username: </strong></label> 
+                <p><i>{{username}}</i></p>
+                <label><strong>Nickname: </strong></label> 
+                <p><i>{{name}}</i></p><br>
+            </div>
+        </div>
+        <div class = "col-sm  p-5 m-6 bg-white">
+            <form action="/settings" method="post">
+                <div class="form-group">
+                    <label for="password">Current Password:</label>
+                    <input autocomplete="off" autofocus class="form-control" name="currPw" type="password">
+                </div>
+                <div class="form-group">
+                    <label for="password">New Password:</label>
+                    <input autocomplete="off" autofocus class="form-control" name="newpassword" type="password">
+                </div>
+                <div class="form-group">
+                    <label for="confirmation">Confirm New Password:</label>
+                    <input autocomplete="off" autofocus class="form-control" name="confirmation" type="password">
+                </div>
+                <button class="btn btn-custom p-0" type="submit">Change Password</button>
+            </form>
+        </div>
+        
+    </div>
+</div>
+
+<script>
+    document.querySelector('form').onsubmit = function() {
+        if (!(document.querySelector('input[name="password"]').value == document.querySelector('input[name="confirmation"]').value)) {
+          alert('Your password and confirmation must match');
+          return false;
+        }
+         if ((document.querySelector('input[name="currPw"]').value == document.querySelector('input[name="password"]').value)) {
+          alert('Your new password must be different from your old one');
+          return false;
+        }
+    }
+</script>
+
+
+{% endblock %}

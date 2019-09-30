@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block title %}
+    Welcome
+{% endblock %}
+{% block main %}
+<div class="container-fluid bg-custom">
+    <div class="row">
+        <div class = "col-sm p-3 m-2">
+            <img src= "/static/logo.jpg" class="img-fluid " alt="Responsive image">
+        </div>
+        <div class = "col-sm bg-custom p-5 m-6 bg-white">
+            <div class="row text-center px-3 py-4">
+                <h5 class="pb-4 border-bottom border-black">Dressing poorly for the weather can lead to feeling uncomfortable all day long
+                </h5>
+                <h5 class="pt-3">Don't let it happen to you</h5>
+                
+            </div>
+            <div class="row">
+                <div class ="col text-center">
+                    <button type="button" class="btn btn-custom"><a href = "login">log in</a></button>
+                    <button type="button" class="btn btn-custom"><a href = "register">sign up</a></button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
