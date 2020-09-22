@@ -12,10 +12,10 @@ Wearing the wrong clothes for the temperature bears a much larger presence on al
 we're feeling uncomfortable and fantasizing about the better weather circumstances.
 
 ## Built With
-*CS50 IDE
-*Python
-*Flask
-*HTML
+* CS50 IDE
+* Python
+* Flask
+* HTML
 
 ## Full Description
 The Weather Stylist enables users to sign up for an account and essentially create their own "weather advisor". The tool is quite minimal in 
