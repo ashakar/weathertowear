@@ -1,4 +1,4 @@
-# Weather Stylist
+# Weather to Wear
 
 An interactive web application that advises users on how to dress based on the overall outdoor weather trends throughout the day.
 
