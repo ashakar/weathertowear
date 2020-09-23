@@ -1,13 +1,13 @@
 
 .navbar{
     border-color: #BDEDFF;
-    font-family: 'Poiret One';
+    font-family: 'Quicksand';
     color: lightskyblue;
     font-size: 20px;
 }
 
 a{
-  color: lightskyblue;  
+  color: lightskyblue;
 }
 
 a:hover{
@@ -27,9 +27,9 @@ span.navbar-toggler-icon {
   color: white;
 }
 
-  
+
 .bg-custom{
-    background-color: #BDEDFF;
+    background-color:#89CFF0;
     border-color: black;
 }
 
@@ -38,18 +38,24 @@ span.navbar-toggler-icon {
     border-color: black;
 }
 
+.bg-custom2{
+    background-color: skyblue;
+    border-color: black;
+}
+
 .container-fluid{
     padding: 0;
 }
 
 label{
-    font-family: 'Cutive';
+    font-family: 'Fredoka One';
+    font-size: 18px;
     color: lightskyblue;
 }
 .btn-custom, .btn-custom1{
     background-color: none;
     font-size: 24px;
-    font-family: 'Chonburi';
+    font-family: 'Fredoka One';
     color: lightskyblue;
 }
 
@@ -58,13 +64,26 @@ label{
     border-width: 1px;
 }
 h5{
-    font-family: 'Ultra';
+    font-family: 'Quicksand';
     font-size: 36px;
     color: lightskyblue;
 }
 
 h4{
-    font-family: 'Poiret One';
-    color: skyblue;
+    padding-top: 25%;
+    font-family: 'Fredoka One';
+    color: lightskyblue;
+    font-size: 40px;
+    margin: auto;
 }
 
+p{
+    font-family: "Quicksand";
+    color: skyblue;
+    margin: auto;
+}
+
+ul
+{
+    list-style-type: none;
+}
