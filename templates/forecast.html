@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block title %}
+    Forecast
+{% endblock %}
+{% block main %}
+<style>
+    .li
+    {
+        font-family: "Quicksand";
+        color: skyblue;
+        margin: auto;
+        padding: 0;
+    }
+    b{
+        color: #02afed;
+    }
+</style>
+<div class="bg-custom p-4 text-center">
+    <div class="p-4 bg-white ">
+        <h4 class="pt-4"> Current Temperature: {{temp}} &#176;F </h4>
+        <p><i>{{condition}}</i></p>
+        <br>
+        <ul class = "li">
+
+            <li><b>Maximum Temperatutre:</b> {{max_temp}}</li>
+            <li><b>Minimum Temperatutre:</b> {{min_temp}}</li>
+            <li><b>Wind Speed:</b> {{wind}} mph</li>
+            <li><b>Maximum Wind Speed:</b> {{max_wind}} mph</li>
+            <li><b>Visbility:</b> {{visibility}} miles</li>
+            <li><b>Humidity:</b> {{humidity}}</li>
+            <li><b>Average Humidity:</b> {{avghumidity}}</li>
+            <li><b>Sunrise:</b> {{sunrise}}</li>
+            <li><b>Sunset:</b> {{sunset}}</li>
+            <li><b>Chance of Rain:</b> {{chanceofrain}} %</li>
+            <li><b>Chance of Snow:</b> {{chanceofsnow}} %</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

@@ -9,15 +9,28 @@ form-control{
     width: auto;
     display: block;
 }
+h4{
+    padding-top: 0;
+    font-size: 36px;
+}
+label{
+    font-family: "Quicksand";
+}
+h5{
+    font-family: "Montserrat";
+    font-size: 30px;
+    padding-top: 5%;
+}
 </style>
 <div class="container-fluid bg-white">
     <div class="row">
         <div class = "col-sm p-5 m-6 bg-custom">
+            <div class = "px-3 bg-white">
             <div class="row">
                 <div class="px-3 pt-4 py-2 bg-white container-fluid">
-                    <h5>General</h5>
+                    <h4>General</h4>
                     <form action="/customize" method="post">
-                        
+
                     <div class="form-group">
                         <label for="name">Name : <i>{{name}}</i> </label>
                         <input autocomplete="off" autofocus class="form-control" name="name" type="text">
@@ -26,13 +39,14 @@ form-control{
                         <input autocomplete="off" autofocus class="form-control" name="location" type="text">
                     </div>
                 </div>
+
             </div>
             <div class="row">
                 <div class="px-3 pt-2 py-2 bg-white">
-                <h5>Temperature Thresholds</h5>
+                <h4>Temperature Thresholds</h4>
                 {% for weathertype in info %}
                     {% set conditiontext = (weathertype['condition']).replace(" ", "_") %}
-                        <h4>{{weathertype['condition']}} </h4>
+                        <h5>{{weathertype['condition']}} </h5>
                         <div class="form-row">
                         <div class="col-sm">
                             <div class="form-group">
@@ -47,25 +61,26 @@ form-control{
                             </div>
                         </div>
                         </div>
-                {% endfor %}  
+                {% endfor %}
                 </div>
             </div>
-        </div> 
+        </div>
+        </div>
         <div class = "col-sm  p-5 m-6 bg-white">
-            <div class="px-3 pt-4 py-2 bg-custom">
-                <h5 class>Clothing Preferences</h5>   
+            <div class="px-3 pt-4 py-2 bg-custom2">
+                <h4 class="text-white">Clothing Preferences</h4>
                 {% for weathertype in info %}
                     {% set conditiontext = (weathertype['condition']).replace(" ", "_") %}
-                    <h4 class = "text-white">{{weathertype['condition']}}</h4>
+                    <h5 class = "text-white">{{weathertype['condition']}}</h5>
                     <div class="form-group">
                         <label class="text-secondary" for={{ conditiontext+"_clothing" }}> <i>{{weathertype['clothing']}} </i></label>
                         <input autocomplete="off" autofocus class="form-control" name={{ conditiontext+"_clothing" }} type="text">
                     </div>
-                {% endfor %} 
+                {% endfor %}
                 </div>
-            <br>    
+            <br>
             <button class="btn btn-custom1 py-2" type="submit">Customize</button>
-            
+
         </div>
     </div>
     </form>

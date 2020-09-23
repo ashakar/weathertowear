@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block title %}
+    How to Use
+{% endblock %}
+{% block main %}
+<style>
+h4{
+    padding-top: 2.5%;
+    font-size: 42px;
+    color: black;
+    text-decoration: underline;
+}
+h5{
+    color: gray;
+
+    padding-top: 1%;
+    padding-bottom: 1%;
+    font-family: 'Fredoka One';
+    font-size: 32px;
+}
+p{
+    color: darkgray;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+a{
+    color: gray;
+}
+</style>
+<div class = "text-center">
+    <h4> How to Use</h4>
+    <h5> How it works</h5>
+    <p> On the  <a href="/">homepage</a>, you will be provided a brief summary of the current outdoor conditions as well as some recommendations on what to wear outside.
+    The clothing recommendations are directly from what you have indicated as your clothing preferences. If you have already specified your target location, that will be used; otherwise, the weather at your device's location will be referenced.
+    Clothing options, location, along with the various ranges used for temperature interperations can be changed anytime on the  <a href="/customize">customize</a> page. </p>
+    <br>
+    <p> A more thorough report of the current weather can be accessed through the  <a href="/forecast">forecast</a> page, located near the bottom of the home page.</p>
+    <h5> Account settings</h5>
+    <p> Change your username and password on the <a href="/settings">account</a> page.</p>
+    <p> <i><b>Note:</b> You will be asked to provide your current password before making any changes to your account</i></p>
+    <h5> Logging out</h5>
+    <p> Done using the app? Click the <a href="/logout">logout</a> button. Any changes made to preferences or your account will be saved.</p>
+    <br>
+</div>
+{% endblock %}

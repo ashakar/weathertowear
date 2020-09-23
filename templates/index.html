@@ -4,9 +4,9 @@
 {% endblock %}
 {% block main %}
 <style>
-    h4, p{
+    h5, p{
         color: lightskyblue;
-        font-family:"Poiret One";
+        font-family:"Quicksand";
     }
     p{
         font-size: 1.25rem;
@@ -14,12 +14,13 @@
 </style>
 <div class="bg-custom p-4">
     <div class="p-4 bg-white">
-<h5 class="text-center pt-4"> Welcome {{name}}!</h5>
+<h4 class="text-center pt-4"> Welcome {{name}}!</h4>
 <hr>
-<h4 class="text-center"> In {{location}}, it's currently {{temp}} &#176;F and {{description}}!</h5>
-<h4 class="text-center"> Consider wearing clothes such as {{clothing}}</h5>
-<h4 class="text-center"> {{alt}}</h5>
+<h5 class="text-center"> In {{location}}, it's currently {{temp}} &#176;F and {{description}}!</h5>
+<h5 class="text-center"> Consider wearing clothes such as {{clothing}}</h5>
+<h5 class="text-center"> {{alt}}</h5>
 <p class="text-center"> <i>{{analysis}}</i> </p>
+<p class="text-center"> <a href="/forecast">Click here</a> for the full forecast today</p>
 </div>
 </div>
 {% endblock %}
