@@ -7,27 +7,29 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link href='https://fonts.googleapis.com/css?family=Sacramento' rel='stylesheet'>
-    <link href='https://fonts.googleapis.com/css?family=Ultra' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Fredoka One' rel='stylesheet'>
       <link href='https://fonts.googleapis.com/css?family=Cutive' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Sacramento' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Chonburi' rel='stylesheet'>
-    <link href='https://fonts.googleapis.com/css?family=Poiret One' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
     <link href="/static/styles.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <title>The Weather Stylist  {% block title %}{% endblock %} </title>
+    <title> Weather to Wear {% block title %}{% endblock %} </title>
   </head>
   <body>
      <nav class="navbar navbar-expand-md bg-white border-bottom">
-            <a class="navbar-brand" href="/">The Weather Stylist</a>
+            <a class="navbar-brand" href="/">Weather to Wear</a>
             <button aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbar" data-toggle="collapse" type="button">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbar">
                 {% if session.user_id %}
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item"><a class="nav-link" href="/settings">settings</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/howtouse">how to use</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/settings">account</a></li>
                         <li class="nav-item"><a class="nav-link" href="/customize">customize</a></li>
                         <li class="nav-item"><a class="nav-link" href="/logout">log out</a></li>
                     </ul>
@@ -43,4 +45,9 @@
       {% block main %}{% endblock %}
     </main>
   </body>
+  <footer>
+    <div class="border border-top-dark text-right pr-3">
+      <p>Powered by <a href="https://www.weatherapi.com/" title="Free Weather API">WeatherAPI.com</a></p>
+    </div>
+</footer>
 </html>
