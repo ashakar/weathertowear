@@ -13,12 +13,14 @@ we're feeling uncomfortable and fantasizing about the better weather circumstanc
 
 ## Built With
 * CS50 IDE
+* SQL Lite
 * Python
 * Flask
 * HTML
+* CSS
 
 ## Full Description
-The Weather Stylist enables users to sign up for an account and essentially create their own "weather advisor". The tool is quite minimal in 
+Weather to Wear enables users to sign up for an account and essentially create their own "weather advisor". The tool is quite minimal in 
 appearance - immediately upon logging in, users will be provided with a brief summary of the current/day's weather along with the weather
 advisors clothing recommendations.Although initially, these recommendations will be based on default, pre-programmed values,
 over time, the weather stylist can inteligently learn the user's own preferences and adjust its recommendations accordingly.
