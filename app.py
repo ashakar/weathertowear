@@ -37,24 +37,54 @@ db = SQL("sqlite:///weather.db")
 def get_index():
     user =  db.execute("SELECT * FROM users WHERE id = :user_id", user_id=session["user_id"])
     name = user[0]['name']
+    #get the forecast at the user's location
     if (user[0]['location']):
         data = get_temp(user[0]['location'])
-    else: 
+    else:
         data = get_temp()
         db.execute("UPDATE users SET location = :location WHERE id = :user_id", location=get_loc(), user_id=session["user_id"])
-    
+
     clothing, analysis, alternates = processWeather(data)
     if not (alternates == ""):
         alternates = f"If you are going out for a while, it also wouldn't be the worst idea to have {alternates} or similar wear on hand because the weather today is prone to high variability."
     return render_template("index.html", name = name, temp = data['current']['temp_f'], location = data['location']['name'], description = data['current']['condition']['text'].lower(), clothing = clothing, alt = alternates, analysis = analysis)
-    
+
 @app.route("/homepage", methods=["GET"])
 def get_home():
     return render_template("homepage.html")
-    
+
 @app.route("/about", methods=["GET"])
 def get_about():
     return render_template("about.html")
+
+@app.route("/forecast", methods=["GET"])
+@login_required
+def get_forecast():
+    user = db.execute("SELECT * FROM users WHERE id = :user_id", user_id=session["user_id"])
+
+    #obtain data of interest from API's forecast output
+    name = user[0]['name']
+    data = get_temp(user[0]['location'])
+    temp_f = float(data['current']['feelslike_f'])
+    condition = data['current']['condition']['text']
+    wind = data['current']['wind_mph']
+    visibility = data['current']['vis_miles']
+    humidity = data['current']['humidity']
+    min_temp = data['forecast']['forecastday'][0]["day"]['mintemp_f']
+    max_temp = data['forecast']['forecastday'][0]["day"]['maxtemp_f']
+    max_wind = data['forecast']['forecastday'][0]["day"]['maxwind_mph']
+    avghumidity = data['forecast']['forecastday'][0]["day"]['avghumidity']
+    rain_chance = data['forecast']['forecastday'][0]["day"]['daily_chance_of_rain']
+    snow_chance = data['forecast']['forecastday'][0]["day"]['daily_chance_of_snow']
+    sunrise = data['forecast']['forecastday'][0]["astro"]['sunrise']
+    sunset = data['forecast']['forecastday'][0]["astro"]['sunset']
+    return render_template("forecast.html", temp = temp_f, condition = condition, wind = wind, visibility = visibility, humidity = humidity, min_temp = min_temp, max_temp = max_temp, max_wind = max_wind, avghumidity = avghumidity, sunrise = sunrise, sunset = sunset, chanceofrain = rain_chance, chanceofsnow = snow_chance)
+
+
+@app.route("/howtouse", methods=["GET"])
+@login_required
+def get_howtouse():
+    return render_template("howtouse.html")
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -71,11 +101,11 @@ def login():
                           username=request.form.get("username"))
 
         # Ensure username exists and password is correct
-        if len(rows) == 0: 
+        if len(rows) == 0:
             return apology("Invalid. Please Check Your Username", 403)
-            
+
         if not check_password_hash(rows[0]["hash"], request.form.get("password")):
-            return apology("Invalid. Please Check Your Password", 403)    
+            return apology("Invalid. Please Check Your Password", 403)
 
         # Remember which user has logged in
         session["user_id"] = rows[0]["id"]
@@ -147,9 +177,9 @@ def get_settings():
     else:
         user =  db.execute("SELECT * FROM users WHERE id = :user_id", user_id=session["user_id"])
         username = user[0]['username']
-        name = user[0]['name'] 
+        name = user[0]['name']
         return render_template("settings.html", username = username, name = name)
-        
+
 
 @app.route("/setup", methods=["GET", "POST"])
 @login_required
@@ -157,6 +187,7 @@ def get_setup():
     if request.method == "POST":
         user = db.execute("SELECT * FROM users WHERE id = :user_id", user_id=session["user_id"])
         username = user[0]['username']
+        #set user's clothing preferences in database, linking by username
         db.execute("INSERT INTO preferences (condition, clothing, lower, upper, user) VALUES('Hot Days', :clothing, 85, 140, :username)",
                     clothing = request.form.get('extremeheat'), username = username)
         db.execute("INSERT INTO preferences (condition, clothing, lower, upper, user) VALUES('Warm Days', :clothing, 70, 84.9, :username)",
@@ -178,15 +209,18 @@ def get_setup():
 @app.route("/customize", methods=["GET", "POST"])
 @login_required
 def get_customize():
+    #Get user from database
     user = db.execute("SELECT * FROM users WHERE id = :user_id", user_id=session["user_id"])
     username = user[0]['username']
     if request.method == "POST":
+        #change name and/or location
         if request.form.get("name"):
-            db.execute("UPDATE users SET name = :name WHERE username = :username", name = request.form.get("name"), username = username) 
+            db.execute("UPDATE users SET name = :name WHERE username = :username", name = request.form.get("name"), username = username)
         if request.form.get("location"):
-            db.execute("UPDATE users SET location = :location WHERE username = :username", location = request.form.get("location"), username = username) 
+            db.execute("UPDATE users SET location = :location WHERE username = :username", location = request.form.get("location"), username = username)
 
         info = db.execute("SELECT condition FROM preferences WHERE user = :username", username=username)
+        #change temperature ranges and/or clothing for said conditions
         for condition in info:
             conditiontext =(condition['condition']).replace(" ", "_")
             if request.form.get(f"{conditiontext}_min"):
@@ -195,12 +229,12 @@ def get_customize():
                 db.execute("UPDATE preferences SET upper = :upper WHERE user = :username AND condition = :condition", upper = request.form.get(f"{conditiontext}_upper"), username = username, condition = condition['condition'])
             if request.form.get(f"{conditiontext}_clothing"):
                 db.execute("UPDATE preferences SET clothing = :clothing WHERE user = :username AND condition = :condition", clothing = request.form.get(f"{conditiontext}_clothing"), username = username, condition = condition['condition'])
-        
+
         return redirect("/customize")
     else:
         info = db.execute("SELECT * FROM preferences WHERE user = :username", username=username)
         return render_template("customize.html", name=user[0]['name'], location=user[0]['location'], info = info)
-  
+
 @app.route("/logout")
 def logout():
     """Log user out"""
@@ -215,7 +249,7 @@ def processWeather(data):
     # select user
     user = db.execute("SELECT * FROM users WHERE id = :user_id", user_id=session["user_id"])
     username = user[0]['username']
-    
+
     #obtain specific data of interest
     temperature = float(data['current']['feelslike_f'])
     maxtempf = float(data['forecast']['forecastday'][0]["day"]['maxtemp_f'])
@@ -223,8 +257,8 @@ def processWeather(data):
     condition= data['current']['condition']['text'].lower()
     clothing=""
     analysis=""
+
     # account for variation due to snow/rain, which can make it feel colder than really is
-    # add WIND AND A MESSAGE!s
     if "rain" in condition or "drizzle" in condition:
         analysis = f"It feels like {temperature} F, but due to the moisture in the air, you will be more comfortable dressing like it is {int(temperature - 5)} F outside"
         temperature-=5
@@ -261,18 +295,20 @@ def processWeather(data):
                     if not(alternates == ""):
                         alternates+=", "
                     alternates+=row['clothing']
-    
+
     return (clothing, analysis, alternates)
 
-
+# Obtain the user's latitude and longitude from their IP Address using the IP Geolocation API
 def get_loc():
-    loc = requests.get('https://api.ipgeolocation.io/ipgeo?apiKey=4a5610be3a46448691115315cb838b76&fields=city')
+    loc = requests.get('https://api.ipgeolocation.io/ipgeo?apiKey=4a5610be3a46448691115315cb838b76&fields=latitude,longitude')
+    #parse json data
     loc = loc.json()
-    return str(loc['city'])
+    return str(loc['latitude']+","+loc['longitude'])
 
+# Obtain the current weather conditions and one day forecast from the Weather API
 def get_temp(loc=get_loc()):
     try:
-        response = requests.get("http://api.apixu.com/v1/forecast.json?key=73100557ee0f441fa9f155027193006&q=" + loc + "&days=1")
+        response = requests.get("https://api.weatherapi.com/v1/forecast.json?key=44bb1496588f4ba7af3152217202209&q=" + loc + "&days=1")
         response.raise_for_status()
     except requests.RequestException:
         return None
