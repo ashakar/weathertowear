@@ -33,8 +33,9 @@ Session(app)
 db = SQL("sqlite:///weather.db")
 
 @app.route("/", methods=["GET"])
-@login_required
 def get_index():
+    if session.get("user_id") is None:
+        return redirect("/homepage")
     user =  db.execute("SELECT * FROM users WHERE id = :user_id", user_id=session["user_id"])
     name = user[0]['name']
     #get the forecast at the user's location
